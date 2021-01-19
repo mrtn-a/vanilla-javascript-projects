@@ -30,34 +30,50 @@ function isValidEmail(email) {
   // }
 }
 
+// Check required fields:
+function checkRequired(inputArr) {
+  inputArr.forEach(function(input) {
+    if(input.value.trim() === '') {// .trim to get rid of any whitespace
+      showError(input, `${getFieldName(input)} is required`);
+    } else {
+      showSuccess(input);
+    }
+  });
+}
+
+// Get fieldname & capitalize the 1st letter
+function getFieldName(input) {
+  return input.id.charAt(0).toUpperCase() + input.id.slice(1); // get 1st letter and uppercase it + input.id and cut out the first letter => .slice at the second character (index goes from 0, so we put 1)
+}
 
 // Event listeners:
 form.addEventListener('submit', function(e) {
   e.preventDefault();
 
-  if (username.value === '') {
-    showError(username, 'Username is required');
-  } else {
-    showSuccess(username);
-  }
+  checkRequired([username, email, password, password2]);
+  // if (username.value === '') {
+  //   showError(username, 'Username is required');
+  // } else {
+  //   showSuccess(username);
+  // }
 
-  if (email.value === '') {
-    showError(email, 'Email is required');
-  } else if (!isValidEmail(email.value)) {
-    showError(email, 'Email is not valid');
-  } else {
-    showSuccess(email);
-  }
+  // if (email.value === '') {
+  //   showError(email, 'Email is required');
+  // } else if (!isValidEmail(email.value)) {
+  //   showError(email, 'Email is not valid');
+  // } else {
+  //   showSuccess(email);
+  // }
 
-  if (password.value === '') {
-    showError(password, 'Password is required');
-  } else {
-    showSuccess(password);
-  }
+  // if (password.value === '') {
+  //   showError(password, 'Password is required');
+  // } else {
+  //   showSuccess(password);
+  // }
 
-  if (password2.value === '') {
-    showError(password2, 'Password is required');
-  } else {
-    showSuccess(password2);
-  }
+  // if (password2.value === '') {
+  //   showError(password2, 'Password is required');
+  // } else {
+  //   showSuccess(password2);
+  // }
 });
