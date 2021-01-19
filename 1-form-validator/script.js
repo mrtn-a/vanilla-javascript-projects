@@ -52,6 +52,13 @@ function checkLength(input, min, max) {
   }
 };
 
+// Check passwords match:
+function checkPasswordsMatch(input1, input2) {
+  if (input1.value !== input2.value) {
+    showError(input2, 'Passwords do not match');
+  }
+}
+
 // Get fieldname & capitalize the 1st letter (used in the functions above)
 function getFieldName(input) {
   return input.id.charAt(0).toUpperCase() + input.id.slice(1); // get 1st letter and uppercase it + input.id and cut out the first letter => .slice at the second character (index goes from 0, so we put 1)
@@ -91,4 +98,5 @@ form.addEventListener('submit', function(e) {
   checkLength(username,3, 15);
   checkLength(password,6, 25);
   checkEmail(email);
+  checkPasswordsMatch(password, password2);
 });
