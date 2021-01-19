@@ -19,15 +19,14 @@ function showSuccess(input) {
 }
 
 // Check if email is valid
-function isValidEmail(email) {
+function checkEmail(input) {
   const re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-  return re.test(String(email).toLowerCase());
 
-  // if (re.test(input.value.trim())) {
-  //   showSuccess(input);
-  // } else {
-  //   showError(input, 'Email is not valid');
-  // }
+  if (re.test(input.value.trim())) {
+    showSuccess(input);
+  } else {
+    showError(input, 'Email is not valid');
+  }
 }
 
 // Check required fields:
@@ -41,7 +40,19 @@ function checkRequired(inputArr) {
   });
 }
 
-// Get fieldname & capitalize the 1st letter
+
+// Check input length:
+function checkLength(input, min, max) {
+  if (input.value.length < min) {
+    showError(input, `${getFieldName(input)} must be at least ${min} characters`);
+  } else if (input.value.length > max) {
+    showError(input, `${getFieldName(input)} must be less than ${max} characters`);
+  } else {
+    showSuccess(input);
+  }
+};
+
+// Get fieldname & capitalize the 1st letter (used in the functions above)
 function getFieldName(input) {
   return input.id.charAt(0).toUpperCase() + input.id.slice(1); // get 1st letter and uppercase it + input.id and cut out the first letter => .slice at the second character (index goes from 0, so we put 1)
 }
@@ -76,4 +87,8 @@ form.addEventListener('submit', function(e) {
   // } else {
   //   showSuccess(password2);
   // }
+
+  checkLength(username,3, 15);
+  checkLength(password,6, 25);
+  checkEmail(email);
 });
