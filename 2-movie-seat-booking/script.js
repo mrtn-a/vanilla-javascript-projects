@@ -6,6 +6,8 @@ const movieSelect = document.getElementById('movie');
 
 let ticketPrice = +movieSelect.value; // adding + will turn it into an integer (works as parseInt() )
 
+populateUI();
+
 // Save selected movie index and price
 function saveMovieData(movieIndex, moviePrice) {
   localStorage.setItem('selectedMovieIndex', movieIndex);
@@ -37,6 +39,26 @@ function updateSelectedCount() {
   total.innerText = selectedSeatsCount * ticketPrice;
 }
 
+// Get data from local storage and populate UI
+function populateUI() {
+  const selectedSeats = JSON.parse(localStorage.getItem('selectedSeats'));
+
+  // check if there are any seats in the local storage, then loop through and add selected class to the UI
+  if (selectedSeats !== null && selectedSeats.length > 0) {
+    seats.forEach((seat, index) => {
+      if (selectedSeats.indexOf(index) > -1) { // greater than -1, meaning it is there in the array
+        seat.classList.add('selected');
+      }
+    });
+  }
+
+  const selectedMovieIndex = localStorage.getItem('selectedMovieIndex');
+  // check if there is anything in the local storage
+  if (selectedMovieIndex !== null) {
+    movieSelect.selectedIndex =selectedMovieIndex;
+  }
+}
+
 // Movie select event (change event)
 movieSelect.addEventListener('change', e => {
   ticketPrice = +e.target.value;
@@ -54,3 +76,6 @@ container.addEventListener('click', (e) => {
     updateSelectedCount();
   }
 });
+
+// Initian cound and total set
+updateSelectedCount();
