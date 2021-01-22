@@ -1,7 +1,20 @@
-const currencyEl_one = document.getEelementById("currency-one");
-const amountEl_one = document.getEelementById("amount-one");
-const currencyEl_two = document.getEelementById("currency-two");
-const amountEl_two = document.getEelementById("amount-two");
+const currencyEl_one = document.getElementById("currency-one");
+const amountEl_one = document.getElementById("amount-one");
+const currencyEl_two = document.getElementById("currency-two");
+const amountEl_two = document.getElementById("amount-two");
 
-const rateEl = document.getEelementById("rate");
-const swap = document.getEelementById("swap");
+const rateEl = document.getElementById("rate");
+const swap = document.getElementById("swap");
+
+// Fetch exchange rates and update the DOM
+function calculate() {
+	console.log("ran");
+}
+
+// Event listeners
+currencyEl_one.addEventListener("change", calculate);
+amountEl_one.addEventListener("input", calculate);
+currencyEl_two.addEventListener("change", calculate);
+amountEl_two.addEventListener("input", calculate);
+
+calculate();
