@@ -101,10 +101,10 @@ button:focus {
 }
 
 .toggle {
-	background-color: rgba(0, 0, 0, 0.3);
+	background-color: rgba(0, 0, 0, 0.2);
 	position: absolute;
-	top: 20px;
-	left: 20px;
+	top: 3vh;
+	left: 3vh;
 }
 
 .cta-btn {
@@ -120,7 +120,7 @@ button:focus {
 }
 
 .modal-container {
-	background-color: rgba(0, 0, 0, 0.6);
+	background-color: rgba(0, 0, 0, 0.5);
 	display: none;
 	position: fixed;
 	top: 0;
@@ -183,14 +183,4 @@ button:focus {
 	position: absolute;
 	top: 0;
 	right: 0;
-}
-
-@keyframes modalopen {
-	from {
-		opacity: 0;
-	}
-
-	to {
-		opacity: 1;
-	}
 }
