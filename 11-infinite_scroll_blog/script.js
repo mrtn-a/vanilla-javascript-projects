@@ -50,9 +50,30 @@ function showLoading() {
 	}, 1000);
 }
 
+// Filter posts by input
+function filterPosts(e) {
+	const term = e.target.value.toUpperCase();
+	const posts = document.querySelectorAll(".post"); // -> we get a node list
+
+	posts.forEach((post) => {
+		const title = post.querySelector(".post-title").innerText.toUpperCase();
+		const body = post.querySelector(".post-body").innerText.toUpperCase();
+
+		// indexOf to check if it matches; if there is no match, there'll be -1 returned, that's why we check for values above -1
+		if (title.indexOf(term) > -1 || body.indexOf(term) > -1) {
+			post.style.display = "flex";
+		} else {
+			post.style.display = "none";
+		}
+	});
+}
+
 // Show initial posts
 showPosts();
 
+// EVENT LISTENERS
+
+// Run loading on window scroll
 window.addEventListener("scroll", () => {
 	const { scrollTop, scrollHeight, clientHeight } = document.documentElement;
 
@@ -60,3 +81,6 @@ window.addEventListener("scroll", () => {
 		showLoading();
 	}
 });
+
+// Run filter when someone types input
+filter.addEventListener("input", filterPosts);
