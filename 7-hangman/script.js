@@ -23,12 +23,14 @@ function displayWord() {
 	${selectedWord
 		.split("")
 		.map(
+			// displays a letter if it's there, if not, empty string
 			(letter) => `
 			<span class="letter">
-				${correctLetters.includes(letter) ? letter : ""}
+				${correctLetters.includes(letter) ? letter : ""} 
 			</span>
 			`
 		)
+		// to turn it back into a string
 		.join("")}
 	`;
 	const innerWord = wordEl.innerText.replace(/[ \n]/g, "");
@@ -38,5 +40,45 @@ function displayWord() {
 		popup.style.display = "flex";
 	}
 }
+
+// Update the wrong letters
+function updateWrongLettersEl() {
+	console.log("wrong");
+}
+
+// Show notification
+function showNotification() {
+	notification.classList.add("show");
+
+	setTimeout(() => {
+		notification.classList.remove("show");
+	}, 2000);
+}
+
+// Keydown letter press
+window.addEventListener("keydown", (e) => {
+	// if (playable) {
+	if (e.keyCode >= 65 && e.keyCode <= 90) {
+		const letter = e.key.toLowerCase();
+
+		if (selectedWord.includes(letter)) {
+			if (!correctLetters.includes(letter)) {
+				correctLetters.push(letter);
+
+				displayWord();
+			} else {
+				showNotification();
+			}
+		} else {
+			if (!wrongLetters.includes(letter)) {
+				wrongLetters.push(letter);
+
+				updateWrongLettersEl();
+			} else {
+				showNotification();
+			}
+		}
+	}
+});
 
 displayWord();
