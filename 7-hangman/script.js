@@ -14,6 +14,8 @@ const words = ["application", "martyna", "gaudi", "programming", "barcelona"];
 
 let selectedWord = words[Math.floor(Math.random() * words.length)];
 
+let playable = true;
+
 const correctLetters = [];
 const wrongLetters = [];
 
@@ -37,7 +39,11 @@ function displayWord() {
 
 	if (innerWord === selectedWord) {
 		finalMessage.innerText = "Congratulations, you won 🥳";
+		finalMessageRevealWord.innerText = "";
+
 		popup.style.display = "flex";
+
+		playable = false;
 	}
 }
 
@@ -63,8 +69,12 @@ function updateWrongLettersEl() {
 	// Check if lost
 	if (wrongLetters.length === figureParts.length) {
 		finalMessage.innerText = "Oh sorry, you lost 🥺";
+		finalMessageRevealWord.innerText = `...the word was: ${selectedWord}`;
+
 		// show popup window styled earlier
 		popup.style.display = "flex";
+
+		playable = false;
 	}
 }
 
@@ -79,25 +89,26 @@ function showNotification() {
 
 // Keydown letter press
 window.addEventListener("keydown", (e) => {
-	// if (playable) {
-	if (e.keyCode >= 65 && e.keyCode <= 90) {
-		const letter = e.key.toLowerCase();
+	if (playable) {
+		if (e.keyCode >= 65 && e.keyCode <= 90) {
+			const letter = e.key.toLowerCase();
 
-		if (selectedWord.includes(letter)) {
-			if (!correctLetters.includes(letter)) {
-				correctLetters.push(letter);
+			if (selectedWord.includes(letter)) {
+				if (!correctLetters.includes(letter)) {
+					correctLetters.push(letter);
 
-				displayWord();
+					displayWord();
+				} else {
+					showNotification();
+				}
 			} else {
-				showNotification();
-			}
-		} else {
-			if (!wrongLetters.includes(letter)) {
-				wrongLetters.push(letter);
+				if (!wrongLetters.includes(letter)) {
+					wrongLetters.push(letter);
 
-				updateWrongLettersEl();
-			} else {
-				showNotification();
+					updateWrongLettersEl();
+				} else {
+					showNotification();
+				}
 			}
 		}
 	}
@@ -105,6 +116,8 @@ window.addEventListener("keydown", (e) => {
 
 // Restart the game and play again
 playAgainBtn.addEventListener("click", () => {
+	playable = true;
+
 	// Empty arrays
 	correctLetters.splice(0);
 	wrongLetters.splice(0);
