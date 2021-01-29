@@ -43,11 +43,13 @@ function displayWord() {
 
 // Update the wrong letters
 function updateWrongLettersEl() {
+	// Display wrong letters
 	wrongLettersEl.innerHTML = `
 		${wrongLetters.length > 0 ? "<p>Wrong</p>" : ""}
 		${wrongLetters.map((letter) => `<span>${letter}</span>`)}
 	`;
 
+	// Display - build the hangman
 	figureParts.forEach((part, index) => {
 		const errors = wrongLetters.length; // to check how many errors are there?
 
@@ -57,6 +59,13 @@ function updateWrongLettersEl() {
 			part.style.display = "none";
 		}
 	});
+
+	// Check if lost
+	if (wrongLetters.length === figureParts.length) {
+		finalMessage.innerText = "Oh sorry, you lost 🥺";
+		// show popup window styled earlier
+		popup.style.display = "flex";
+	}
 }
 
 // Show notification
