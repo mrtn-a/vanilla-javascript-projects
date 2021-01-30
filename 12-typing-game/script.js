@@ -52,4 +52,22 @@ function addWordToDOM() {
 	word.innerHTML = randomWord;
 }
 
+// Update score
+function updateScore() {
+	score++; // increment the score by 1
+	scoreEl.innerHTML = score;
+}
+
 addWordToDOM();
+
+// Event listeners
+text.addEventListener("input", (e) => {
+	const insertedText = e.target.value;
+
+	if (insertedText === randomWord) {
+		addWordToDOM(); // word matches,call the function again
+		updateScore(); // add points
+
+		e.target.value = ""; // clear the text box
+	}
+});
