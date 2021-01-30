@@ -41,6 +41,12 @@ let score = 0;
 // Init time
 let time = 10;
 
+// Focus on text on start
+text.focus();
+
+// Start counting down
+const timeInterval = setInterval(updateTime, 1000);
+
 // Generate a random word from the array
 function getRandomWord() {
 	return words[Math.floor(Math.random() * words.length)];
@@ -58,6 +64,29 @@ function updateScore() {
 	scoreEl.innerHTML = score;
 }
 
+// Update time
+function updateTime() {
+	time--; // decrease by 1
+	timeEl.innerHTML = time + "s"; // to add word "s -> seconds"
+
+	if (time === 0) {
+		clearInterval(timeInterval);
+
+		// end the game
+		gameOver();
+	}
+}
+
+// Game over, show end screen
+function gameOver() {
+	endgameEl.innerHTML = `
+		<h1>Time run out</h1>
+		<p>Your final score is ${score}</p>
+		<button onclick="window.location.reload()">Reload</button>
+	`;
+
+	endgameEl.style.display = "flex";
+}
 addWordToDOM();
 
 // Event listeners
@@ -69,5 +98,8 @@ text.addEventListener("input", (e) => {
 		updateScore(); // add points
 
 		e.target.value = ""; // clear the text box
+
+		time += 5; // += -> append to it
+		updateTime();
 	}
 });
