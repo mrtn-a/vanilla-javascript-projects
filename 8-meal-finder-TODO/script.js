@@ -61,6 +61,22 @@ function getMealById(mealID) {
 		});
 }
 
+// Fetch random meal from API
+function getRandomMeal() {
+	// Clear meals and heading first
+	mealsEl.innerHTML = "";
+	resultsHeading.innerHTML = "";
+	// Lookup a single random meal from API
+	fetch(`https://www.themealdb.com/api/json/v1/1/random.php`)
+		.then((res) => res.json())
+		.then((data) => {
+			console.log(data);
+			const meal = data.meals[0]; // first value from the array
+
+			addMealToDOM(meal);
+		});
+}
+
 // Add meal to DOM (-> part with ingredients and measurement from API)
 // -> create an array with ingredients and measurement
 function addMealToDOM(meal) {
@@ -116,3 +132,5 @@ mealsEl.addEventListener("click", (e) => {
 		getMealById(mealID);
 	}
 });
+
+random.addEventListener("click", getRandomMeal);
