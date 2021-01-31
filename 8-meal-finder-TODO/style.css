@@ -3,12 +3,15 @@
 }
 
 body {
-  background: #2d2013;
+  background: #d1c0c6;
   color: #fff;
   font-family: Verdana, Geneva, Tahoma, sans-serif;
   margin: 0;
 }
 
+p {
+  color: black;
+}
 .container {
   margin: auto;
   max-width: 800px;
