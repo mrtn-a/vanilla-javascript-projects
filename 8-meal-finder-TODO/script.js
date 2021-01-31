@@ -49,6 +49,70 @@ function searchMeal(e) {
 	}
 }
 
+// Fetch meal by ID (+ Lookup full meal details by id -> from API)
+function getMealById(mealID) {
+	fetch(`https://www.themealdb.com/api/json/v1/1/lookup.php?i=${mealID}`)
+		.then((res) => res.json())
+		.then((data) => {
+			console.log(data);
+			const meal = data.meals[0]; // first value from the array
+
+			addMealToDOM(meal);
+		});
+}
+
+// Add meal to DOM (-> part with ingredients and measurement from API)
+// -> create an array with ingredients and measurement
+function addMealToDOM(meal) {
+	const ingredients = []; // initialize the arr
+
+	for (let i = 1; i <= 20; i++) {
+		// max ingredient list in API is 20, sometimes less so it leaves it empty, we need to check
+		if (meal[`strIngredient${i}`]) {
+			ingredients.push(
+				`${meal[`strIngredient${i}`]} - ${meal[`strMeasure${i}`]}`
+			);
+		} else {
+			break;
+		}
+	}
+
+	single_mealEl.innerHTML = `
+    <div class="single-meal">
+      <h1>${meal.strMeal}</h1>
+      <img src="${meal.strMealThumb}" alt="${meal.strMeal}" />
+      <div class="single-meal-info">
+        ${meal.strCategory ? `<p>Category: ${meal.strCategory}</p>` : ""} 
+        ${meal.strArea ? `<p>Origin: ${meal.strArea}</p>` : ""}
+      </div>
+      <div class="main">
+        <p>${meal.strInstructions}</p>
+        <h2>Ingredients</h2>
+        <ul>
+          ${ingredients.map((ingredient) => `<li>${ingredient}</li>`).join("")}
+        </ul>
+      </div>
+    </div>
+	`;
+}
+
 // EVENT LISTENERS
 
 submit.addEventListener("submit", searchMeal);
+
+mealsEl.addEventListener("click", (e) => {
+	const mealInfo = e.path.find((item) => {
+		// check if there's a class of 'meal info' which is the one we need
+		if (item.classList) {
+			return item.classList.contains("meal-info");
+		} else {
+			return false;
+		}
+	});
+
+	// check for meal-info and get the ID
+	if (mealInfo) {
+		const mealID = mealInfo.getAttribute("data-mealid");
+		getMealById(mealID);
+	}
+});
