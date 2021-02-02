@@ -26,7 +26,7 @@ function addTransaction(e) {
 		const transaction = {
 			id: generateID(),
 			text: text.value,
-			amount: +amount.value,
+			amount: +amount.value, // + to make it a number from a string
 		};
 
 		// adding to transactions array
@@ -62,7 +62,9 @@ function addTransactionDOM(transaction) {
 	item.innerHTML = `
     ${transaction.text} <span>${sign}${Math.abs(
 		transaction.amount
-	)}</span> <button class="delete-btn">x</button>
+	)}</span> <button class="delete-btn" onclick="removeTransaction(${
+		transaction.id
+	})">x</button>
   `;
 
 	list.appendChild(item);
@@ -93,6 +95,12 @@ function updateValues() {
 	balance.innerText = `$${total}`;
 	money_plus.innerText = `$${income}`;
 	money_minus.innerText = `$${expense}`;
+}
+
+// Remove transaction by ID
+function removeTransaction(id) {
+	transactions = transactions.filter((transaction) => transaction.id !== id); // filter for all the transactions that do not have the id we are trying to remove
+	init(); // update the data
 }
 
 // Init app
