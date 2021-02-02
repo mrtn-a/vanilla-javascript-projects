@@ -6,14 +6,18 @@ const form = document.getElementById("form");
 const text = document.getElementById("text");
 const amount = document.getElementById("amount");
 
-const dummyTransactions = [
-	{ id: 1, text: "Flower", amount: -20 },
-	{ id: 2, text: "Salary", amount: 300 },
-	{ id: 3, text: "Book", amount: -10 },
-	{ id: 4, text: "Camera", amount: 150 },
-];
+const localStorageTransactions = JSON.parse(
+	localStorage.getItem("transactions")
+);
+// const dummyTransactions = [
+// 	{ id: 1, text: "Flower", amount: -20 },
+// 	{ id: 2, text: "Salary", amount: 300 },
+// 	{ id: 3, text: "Book", amount: -10 },
+// 	{ id: 4, text: "Camera", amount: 150 },
+// ];
 
-let transactions = dummyTransactions;
+let transactions =
+	localStorage.getItem("transactions") !== null ? localStorageTransactions : []; // if the local storage is not empty, then use the local storage transactions, else make it an empty array
 
 // Add transaction
 function addTransaction(e) {
