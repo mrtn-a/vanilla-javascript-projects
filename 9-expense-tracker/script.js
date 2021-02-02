@@ -42,6 +42,9 @@ function addTransaction(e) {
 		// update the values
 		updateValues();
 
+		// set the items, overwrite it every time
+		updateLocalStorage();
+
 		// clear the input
 		text.value = "";
 		amount.value = "";
@@ -104,6 +107,10 @@ function updateValues() {
 // Remove transaction by ID
 function removeTransaction(id) {
 	transactions = transactions.filter((transaction) => transaction.id !== id); // filter for all the transactions that do not have the id we are trying to remove
+
+	// set the items, overwrite it every time
+	updateLocalStorage();
+
 	init(); // update the data
 }
 
