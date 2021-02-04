@@ -43,7 +43,35 @@ function pauseSong() {
 	audio.pause();
 }
 
-// Event listener
+// Previous song
+function prevSong() {
+	songIndex--; // decrease the index by 1
+
+	if (songIndex < 0) {
+		songIndex = songs.length - 1;
+	}
+
+	loadSong(songs[songIndex]);
+
+	playSong();
+}
+
+// Next song
+function nextSong() {
+	songIndex++; // increment the index by 1
+
+	if (songIndex > songs.length - 1) {
+		// if greater than 2 in this case
+		songIndex = 0; // index 0 = the first song
+	}
+
+	loadSong(songs[songIndex]);
+
+	playSong();
+}
+
+// Event listeners:
+// Play and pause song
 playBtn.addEventListener("click", () => {
 	const isPlaying = musicContainer.classList.contains("play"); // if the container has 'play' class on it, we know the music is playing
 
@@ -53,3 +81,7 @@ playBtn.addEventListener("click", () => {
 		playSong();
 	}
 });
+
+// Change song
+prevBtn.addEventListener("click", prevSong);
+nextBtn.addEventListener("click", nextSong);
