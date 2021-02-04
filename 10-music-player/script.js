@@ -70,6 +70,16 @@ function nextSong() {
 	playSong();
 }
 
+// Update progress bar
+function updateProgress(e) {
+	const { duration, currentTime } = e.srcElement;
+	console.log(duration, currentTime);
+
+	const progressPercent = (currentTime / duration) * 100;
+	console.log(progressPercent);
+	progress.style.width = `${progressPercent}%`;
+}
+
 // Event listeners:
 // Play and pause song
 playBtn.addEventListener("click", () => {
@@ -85,3 +95,6 @@ playBtn.addEventListener("click", () => {
 // Change song
 prevBtn.addEventListener("click", prevSong);
 nextBtn.addEventListener("click", nextSong);
+
+// Time/song update
+audio.addEventListener("timeupdate", updateProgress);
