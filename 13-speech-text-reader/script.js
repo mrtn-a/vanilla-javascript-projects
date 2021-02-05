@@ -75,3 +75,34 @@ function createBox(item) {
 
 	main.appendChild(box); // outputting each box from the array into DOM
 }
+
+// Store voices
+let voices = [];
+
+function getVoices() {
+	voices = speechSynthesis.getVoices();
+
+	voices.forEach((voice) => {
+		const option = document.createElement("option");
+
+		option.value = voice.name;
+		option.innerText = `${voice.name} ${voice.lang}`;
+
+		voicesSelect.appendChild(option);
+	});
+}
+// Toggle text box
+toggleBtn.addEventListener("click", () =>
+	document.getElementById("text-box").classList.toggle("show")
+);
+
+// Close button
+closeBtn.addEventListener("click", () =>
+	document.getElementById("text-box").classList.remove("show")
+);
+
+// Voices changed
+speechSynthesis.addEventListener("voiceschanged", getVoices);
+
+//
+getVoices();
