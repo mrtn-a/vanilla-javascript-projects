@@ -55,3 +55,23 @@ const data = [
 		text: "I Want To Go To Grandmas",
 	},
 ];
+
+data.forEach(createBox);
+
+// Create speech boxes
+function createBox(item) {
+	const box = document.createElement("div");
+
+	const { image, text } = item; // pulling the things from the Object: item.image and item.text -> destructuring
+
+	box.classList.add("box");
+
+	box.innerHTML = `
+    <img src="${image}" alt="${text}" />
+    <p class="info">${text}</p>
+  `;
+
+	// @TODO - speak event
+
+	main.appendChild(box); // outputting each box from the array into DOM
+}
