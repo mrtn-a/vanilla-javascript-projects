@@ -79,3 +79,19 @@ function updateCurrentText() {
 }
 
 createCards();
+
+// Event listeners:
+
+nextBtn.addEventListener("click", () => {
+	// get the current card by its index and set (override) the class name
+	cardsEl[currentActiveCard].className = "card left";
+
+	currentActiveCard = currentActiveCard + 1;
+
+	// keep the cards within the range, how many they are max (we put -1 as the indexes start at zero)
+	if (currentActiveCard > cardsEl.length - 1) {
+		currentActiveCard = cardsEl.length - 1;
+	}
+
+	cardsEl[currentActiveCard].className = "card active";
+});
