@@ -82,8 +82,14 @@ function updateCurrentText() {
 
 // Get cards from local storage
 function getCardsData() {
-	const cards = JSON.parse(localStorage.getItem("cards")); // local storage only stores strings so we need to turn the array into a string to store it
+	const cards = JSON.parse(localStorage.getItem("cards")); // local storage only stores strings so we need to turn that string back into the array
 	return cards === null ? [] : cards;
+}
+
+// Add card to the local storage (with local storage we need to overwrite the whole data)
+function setCardsData(cards) {
+	localStorage.setItem("cards", JSON.stringify(cards)); // local storage only stores strings so we need to turn the array into a string to store it; stringify version of our array
+	window.location.reload(); // reload the page
 }
 
 createCards();
@@ -122,4 +128,42 @@ prevBtn.addEventListener("click", () => {
 	cardsEl[currentActiveCard].className = "card active";
 
 	updateCurrentText();
+});
+
+// Show 'add' container for cards adding
+showBtn.addEventListener("click", () => addContainer.classList.add("show"));
+
+// Hide 'add' container for cards adding
+hideBtn.addEventListener("click", () => addContainer.classList.remove("show"));
+
+// Add new card
+addCardBtn.addEventListener("click", () => {
+	const question = questionEl.value;
+	const answer = answerEl.value;
+
+	// make sure the input is not empty
+	if (question.trim() && answer.trim()) {
+		const newCard = { question, answer }; // setting the new cards, creating the new card object
+
+		// create the card
+		createCard(newCard);
+
+		// clear the values
+		questionEl.value = "";
+		answerEl.value = "";
+
+		addContainer.classList.remove("show");
+
+		cardsData.push(newCard);
+
+		// add to the local storage
+		setCardsData(cardsData);
+	}
+});
+
+// Clear cards button
+clearBtn.addEventListener("click", () => {
+	localStorage.clear(); // clear local storage
+	cardsContainer.innerHTML = ""; // take the cards out of the DOM
+	window.location.reload(); // reload
 });
