@@ -82,11 +82,12 @@ createCards();
 
 // Event listeners:
 
+// 'Next' button functionality
 nextBtn.addEventListener("click", () => {
 	// get the current card by its index and set (override) the class name
 	cardsEl[currentActiveCard].className = "card left";
 
-	currentActiveCard = currentActiveCard + 1;
+	currentActiveCard = currentActiveCard + 1; // set up the card with 1 index more to display
 
 	// keep the cards within the range, how many they are max (we put -1 as the indexes start at zero)
 	if (currentActiveCard > cardsEl.length - 1) {
@@ -94,4 +95,23 @@ nextBtn.addEventListener("click", () => {
 	}
 
 	cardsEl[currentActiveCard].className = "card active";
+
+	updateCurrentText();
+});
+
+// 'Prev' button functionality
+prevBtn.addEventListener("click", () => {
+	// get the current card by its index and set (override) the class name
+	cardsEl[currentActiveCard].className = "card right";
+
+	currentActiveCard = currentActiveCard - 1; // set up the card with 1 index less to display
+
+	// keep the cards within the range, how many they are max (we put -1 as the indexes start at zero)
+	if (currentActiveCard < 0) {
+		currentActiveCard = 0; // setting to index zero if the current class is the first one
+	}
+
+	cardsEl[currentActiveCard].className = "card active";
+
+	updateCurrentText();
 });
