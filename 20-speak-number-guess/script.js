@@ -67,3 +67,13 @@ function getRandomNumber() {
 
 // Speak result
 recognition.addEventListener("result", onSpeak);
+
+// End SpeachRecognition service
+recognition.addEventListener("end", () => recognition.start());
+
+// Play button
+document.body.addEventListener("click", (e) => {
+	if (e.target.id == "play-again") {
+		window.location.reload();
+	}
+});
