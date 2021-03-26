@@ -8,6 +8,10 @@ const ctx = canvas.getContext("2d");
 // 6.a) Start the score
 let score = 0;
 
+// 8. Create the brick row/column
+const brickRowCount = 9;
+const brickColumnCount = 5;
+
 // 2. Create ball props
 const ball = {
 	x: canvas.width / 2, // to start right in the middle
@@ -28,6 +32,27 @@ const paddle = {
 	speed: 8,
 	dx: 0,
 };
+
+// 9. Create brick props
+const brickInfo = {
+	w: 70,
+	h: 20,
+	padding: 10,
+	offsetX: 45,
+	offsetY: 60,
+	visible: true,
+};
+
+// 10. Create the bricks into canvas
+const bricks = []; // initialize the array
+for (let i = 0; i < brickRowCount; i++) {
+	bricks[i] = [];
+	for (let j = 0; j < brickColumnCount; j++) {
+		const x = i * (brickInfo.w + brickInfo.padding) + brickInfo.offsetX;
+		const y = j * (brickInfo.h + brickInfo.padding) + brickInfo.offsetY;
+		bricks[i][j] = { x, y, ...brickInfo }; // create the brick object
+	}
+}
 
 // 3. Draw ball onto canvas
 function drawBall() {
