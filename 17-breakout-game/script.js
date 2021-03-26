@@ -43,7 +43,7 @@ const brickInfo = {
 	visible: true,
 };
 
-// 10. Create the bricks into canvas
+// 10. Create the bricks
 const bricks = []; // initialize the array
 for (let i = 0; i < brickRowCount; i++) {
 	bricks[i] = [];
@@ -53,6 +53,7 @@ for (let i = 0; i < brickRowCount; i++) {
 		bricks[i][j] = { x, y, ...brickInfo }; // create the brick object
 	}
 }
+console.log(bricks);
 
 // 3. Draw ball onto canvas
 function drawBall() {
@@ -78,11 +79,26 @@ function drawScore() {
 	ctx.fillText(`Score: ${score}`, canvas.width - 100, 30);
 }
 
-// 7. Draw everything -> call the functions
+// 11. Draw bricks onto canvas (array of array)
+function drawBricks() {
+	bricks.forEach((column) => {
+		column.forEach((brick) => {
+			// looping through to create multiple bricks, multiple objects
+			ctx.beginPath();
+			ctx.rect(brick.x, brick.y, brick.w, brick.h);
+			ctx.fillStyle = brick.visible ? "#0095dd" : "transparent";
+			ctx.fill();
+			ctx.closePath();
+		});
+	});
+}
+
+// 7. Draw everything -> call the prev functions
 function draw() {
 	drawBall();
 	drawPaddle();
 	drawScore();
+	drawBricks();
 }
 draw();
 
