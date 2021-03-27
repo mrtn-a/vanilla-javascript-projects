@@ -31,6 +31,7 @@ const paddle = {
 	h: 10,
 	speed: 8,
 	dx: 0,
+	visible: true,
 };
 
 // 9. Create brick props
@@ -53,7 +54,7 @@ for (let i = 0; i < brickRowCount; i++) {
 		bricks[i][j] = { x, y, ...brickInfo }; // create the brick object
 	}
 }
-console.log(bricks);
+// console.log(bricks);
 
 // 3. Draw ball onto canvas
 function drawBall() {
@@ -109,8 +110,12 @@ function movePaddle() {
 		paddle.x = 0;
 	}
 }
+
 // 7. Draw everything -> and and call the game draw functions
 function draw() {
+	// clear canvas
+	ctx.clearRect(0, 0, canvas.width, canvas.height);
+
 	drawBall();
 	drawPaddle();
 	drawScore();
@@ -127,6 +132,31 @@ function update() {
 }
 
 update();
+
+// 15. Keydown event (keydown on the arrow right / left of the keyboard)
+function keyDown(e) {
+	if (e.key === "Right" || e.key === "ArrowRight") {
+		paddle.dx = paddle.speed;
+	} else if (e.key === "Left" || e.key === "ArrowLeft") {
+		paddle.dx = -paddle.speed;
+	}
+}
+
+// 16. Keyup event
+function keyUp(e) {
+	if (
+		e.key === "Right" ||
+		e.key === "ArrowRight" ||
+		e.key === "Left" ||
+		e.key === "ArrowLeft"
+	) {
+		paddle.dx = 0;
+	}
+}
+
+// 14. Keyboard event handlers
+document.addEventListener("keydown", keyDown);
+document.addEventListener("keyup", keyUp);
 
 // Rules and close event handlers
 rulesBtn.addEventListener("click", () => {

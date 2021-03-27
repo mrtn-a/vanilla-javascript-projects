@@ -1,11 +1,11 @@
 1. Create canvas context  - x
 2. Create and draw ball - x 
 3. Create and draw paddle - x
-4. Create bricks -> array in an array
+4. Create bricks -> array in an array - z
 5. Draw score - x
-6. Add update() - Animate - requestAnimationFrame(cb) 
-7. Move paddle 
-8. Keyboard event handlers to move paddle 
+6. Add update() - Animate - requestAnimationFrame(cb) - x
+7. Move paddle - x
+8. Keyboard event handlers to move paddle - x
 9. Move ball 
 10. Add wall bounderies 
 11. Increase score when bricks break
