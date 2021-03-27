@@ -111,6 +111,18 @@ function movePaddle() {
 	}
 }
 
+// 17. Move ball on canvas
+function moveBall() {
+	// move the ball up and over
+	ball.x += ball.dx;
+	ball.y += ball.dy;
+
+	// wall collision (right/left)
+	if (ball.x + ball.size > canvas.width || ball.x - ball.size < 0) {
+		ball.dx *= -1; // ball.dx = ball.dx * -1
+	}
+}
+
 // 7. Draw everything -> and and call the game draw functions
 function draw() {
 	// clear canvas
@@ -125,6 +137,7 @@ function draw() {
 // 12. Update canvas drawing and animation
 function update() {
 	movePaddle();
+	moveBall();
 	// draw everything (7.)
 	draw();
 
