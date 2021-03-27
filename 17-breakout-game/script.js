@@ -156,6 +156,12 @@ function moveBall() {
 			}
 		});
 	});
+
+	// 21. Hit bottom wall - Lose
+	if (ball.y + ball.size > canvas.height) {
+		showAllBricks();
+		score = 0;
+	}
 }
 
 // 19. Increase score
