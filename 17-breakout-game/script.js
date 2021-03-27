@@ -150,11 +150,29 @@ function moveBall() {
 				) {
 					ball.dy *= -1;
 					brick.visible = false;
-
+					// 18.
 					increaseScore();
 				}
 			}
 		});
+	});
+}
+
+// 19. Increase score
+function increaseScore() {
+	score++;
+
+	// check if any bricks left and if not, show them again
+	if (score % (brickRowCount * brickRowCount) === 0) {
+		// 20.
+		showAllBricks();
+	}
+}
+
+// 20. Make all bricks appear
+function showAllBricks() {
+	bricks.forEach((column) => {
+		column.forEach((brick) => (brick.visible = true));
 	});
 }
 
